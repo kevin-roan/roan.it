@@ -4,20 +4,42 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var indexRouter= require('./routes/index');
 var usersRouter = require('./routes/users');
+var hbs= require("express-handlebars")
 
 var app = express();
+var fileupload=require("express-fileupload")
+var db=require("./config/connection")
+var session=require("express-session")
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+app.engine({
+      "hbs",
+      hbs.engine({
+      extname:"hbs",
+      defaultLayout:"layout",
+      layoutsDir:__dirname +"/views/layout"
+      partialsDir:__dirname + "/views/layout/partials/",
+  })
+});
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(fileupload());
+//cookie setup
+app.use(session({secret: "Key", cookie:{ maxAge:600000}}));
+//database connection
+db.connect((err)=>{
+   if(err) console.log("Connection Aborted"+ err);
+  else console.log("Database connected to port 27017");
+})
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
