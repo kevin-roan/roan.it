@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter= require('./routes/index');
+var adminRouter= require('./routes/admin');
 var usersRouter = require('./routes/users');
 var hbs= require("express-handlebars")
 
@@ -41,8 +41,8 @@ db.connect((err)=>{
   else console.log("Database connected to port 27017");
 })
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', userRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
