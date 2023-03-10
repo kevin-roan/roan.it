@@ -1,5 +1,5 @@
 var db = require("../config/connection");
-var collection = require("../config/collections");
+var collection = require("../config/collection");
 var objectId = require("mongodb").ObjectId;
 
 module.exports = {
