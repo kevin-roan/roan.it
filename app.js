@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var adminRouter = require("./routes/admin");
-var usersRouter = require("./routes/users");
+var userRouter = require("./routes/users");
 var hbs = require("express-handlebars");
 
 var app = express();
